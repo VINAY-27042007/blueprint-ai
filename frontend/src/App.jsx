@@ -7,11 +7,14 @@ import './App.css'
 function App() {
   const [projectIdea, setProjectIdea] = useState("")
   const [projectType, setProjectType] = useState("Major Project")
+  const [pageCount, setPageCount] = useState("40")
   
  function generateBlueprint() {
   alert(
     "Project Type: " +
       projectType +
+      "\nPages: " +
+      pageCount +
       "\nProject Idea: " +
       projectIdea
   )
@@ -37,6 +40,16 @@ function App() {
      <option>Major Project</option>
      <option>Hackathon</option>
      <option>Startup</option>
+    </select>
+    <select
+      value={pageCount}
+      onChange={(e) => setPageCount(e.target.value)}
+    >
+     <option>20</option>
+     <option>40</option>
+     <option>60</option>
+     <option>80</option>
+     <option>100</option>
     </select>
   
 
