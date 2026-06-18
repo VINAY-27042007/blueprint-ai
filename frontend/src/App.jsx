@@ -19,7 +19,7 @@ function App() {
 
   return (
     <div className="container">
-      <h1>🚀 BlueprintAI</h1>
+      <h1>BlueprintAI 🚀</h1>
 
       <p className="subtitle">
         Turn any idea into a complete project blueprint.
