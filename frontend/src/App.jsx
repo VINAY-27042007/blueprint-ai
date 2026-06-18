@@ -6,14 +6,18 @@ function App() {
   const [projectType, setProjectType] = useState("Major Project")
   const [pageCount, setPageCount] = useState("40")
 
+  const [techStack, setTechStack] = useState("Java")
+  const [teamSize, setTeamSize] = useState("1 Member")
+  const [difficulty, setDifficulty] = useState("Beginner")
+
   function generateBlueprint() {
     alert(
-      "Project Type: " +
-        projectType +
-        "\nPages: " +
-        pageCount +
-        "\nProject Idea: " +
-        projectIdea
+      "Project Type: " + projectType +
+      "\nPages: " + pageCount +
+      "\nTech Stack: " + techStack +
+      "\nTeam Size: " + teamSize +
+      "\nDifficulty: " + difficulty +
+      "\nProject Idea: " + projectIdea
     )
   }
 
@@ -54,6 +58,40 @@ function App() {
         <option>60</option>
         <option>80</option>
         <option>100</option>
+      </select>
+
+      <label>Tech Stack</label>
+      <select
+        value={techStack}
+        onChange={(e) => setTechStack(e.target.value)}
+      >
+        <option>Java</option>
+        <option>Python</option>
+        <option>MERN</option>
+        <option>AI/ML</option>
+        <option>Flutter</option>
+        <option>Android</option>
+      </select>
+
+      <label>Team Size</label>
+      <select
+        value={teamSize}
+        onChange={(e) => setTeamSize(e.target.value)}
+      >
+        <option>1 Member</option>
+        <option>2 Members</option>
+        <option>3 Members</option>
+        <option>4 Members</option>
+      </select>
+
+      <label>Difficulty Level</label>
+      <select
+        value={difficulty}
+        onChange={(e) => setDifficulty(e.target.value)}
+      >
+        <option>Beginner</option>
+        <option>Intermediate</option>
+        <option>Advanced</option>
       </select>
 
       <button onClick={generateBlueprint}>
