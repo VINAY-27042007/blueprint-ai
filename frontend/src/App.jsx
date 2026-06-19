@@ -10,15 +10,36 @@ function App() {
   const [teamSize, setTeamSize] = useState("1 Member")
   const [difficulty, setDifficulty] = useState("Beginner")
 
+  const [blueprint, setBlueprint] = useState("")
+
   function generateBlueprint() {
-    alert(
-      "Project Type: " + projectType +
-      "\nPages: " + pageCount +
-      "\nTech Stack: " + techStack +
-      "\nTeam Size: " + teamSize +
-      "\nDifficulty: " + difficulty +
-      "\nProject Idea: " + projectIdea
-    )
+    const generatedText = `
+Title: ${projectIdea}
+
+Project Type: ${projectType}
+
+Pages: ${pageCount}
+
+Tech Stack: ${techStack}
+
+Team Size: ${teamSize}
+
+Difficulty: ${difficulty}
+
+Problem Statement:
+This project aims to solve real-world problems using modern technology.
+
+Modules:
+1. User Management
+2. Dashboard
+3. Data Processing
+4. Reports
+
+Future Scope:
+Can be enhanced using AI and cloud technologies.
+    `
+
+    setBlueprint(generatedText)
   }
 
   return (
@@ -97,6 +118,13 @@ function App() {
       <button onClick={generateBlueprint}>
         Generate Blueprint
       </button>
+
+      {blueprint && (
+        <div className="output">
+          <h2>Generated Blueprint</h2>
+          <pre>{blueprint}</pre>
+        </div>
+      )}
     </div>
   )
 }
