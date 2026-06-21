@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { jsPDF } from "jspdf"
 import './App.css'
 
 function App() {
@@ -116,6 +117,16 @@ function downloadBlueprint() {
   element.click()
   document.body.removeChild(element)
 }
+function downloadPDF() {
+  const doc = new jsPDF()
+
+  doc.setFontSize(12)
+
+  const lines = doc.splitTextToSize(blueprint, 180)
+  doc.text(lines, 10, 10)
+
+  doc.save(`${projectIdea || "blueprint"}.pdf`)
+}
 
 
   return (
@@ -196,10 +207,16 @@ function downloadBlueprint() {
       </button>
 
       {blueprint && (
-       <button onClick={downloadBlueprint}>
-         Download Blueprint
-       </button>
-      )}
+  <>
+    <button onClick={downloadBlueprint}>
+      Download Blueprint
+    </button>
+
+    <button onClick={downloadPDF}>
+      Download PDF
+    </button>
+  </>
+)}
 
       {blueprint && (
         <div className="output">
