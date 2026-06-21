@@ -1,6 +1,11 @@
 import { useState } from 'react'
 import { jsPDF } from "jspdf"
 import './App.css'
+import { GoogleGenerativeAI } from "@google/generative-ai"
+
+const genAI = new GoogleGenerativeAI(
+  import.meta.env.VITE_GEMINI_API_KEY
+)
 
 function App() {
   const [projectIdea, setProjectIdea] = useState("")
@@ -127,6 +132,48 @@ function downloadPDF() {
 
   doc.save(`${projectIdea || "blueprint"}.pdf`)
 }
+async function generateAIBlueprint() {
+  if (!projectIdea) {
+    alert("Enter a project idea first")
+    return
+  }
+
+  try {
+    const model = genAI.getGenerativeModel({
+      model: "gemini-2.5-flash"
+    })
+
+    const prompt = `
+Generate a complete project blueprint for:
+
+${projectIdea}
+
+Include:
+1. Abstract
+2. Problem Statement
+3. Objectives
+4. Modules
+5. Methodology
+6. Expected Outcomes
+7. Future Scope
+
+Format it professionally.
+`
+
+    const result = await model.generateContent(prompt)
+
+    const response = result.response.text()
+
+    setBlueprint(response)
+  } catch (error) {
+    console.error(error)
+    alert("Error generating blueprint")
+  }
+}
+function copyBlueprint() {
+  navigator.clipboard.writeText(blueprint)
+  alert("Blueprint copied successfully!")
+}
 
 
   return (
@@ -203,9 +250,12 @@ function downloadPDF() {
       </select>
 
       <button onClick={generateBlueprint}>
-       Generate Blueprint
-      </button>
+  Generate Template
+</button>
 
+<button onClick={generateAIBlueprint}>
+  Generate with AI 🤖
+</button>
       {blueprint && (
   <>
     <button onClick={downloadBlueprint}>
@@ -214,6 +264,10 @@ function downloadPDF() {
 
     <button onClick={downloadPDF}>
       Download PDF
+    </button>
+
+    <button onClick={copyBlueprint}>
+      Copy Blueprint
     </button>
   </>
 )}
