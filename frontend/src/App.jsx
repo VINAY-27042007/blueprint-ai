@@ -13,7 +13,41 @@ function App() {
   const [blueprint, setBlueprint] = useState("")
 
   function generateBlueprint() {
-    const generatedText = `
+  let modules = []
+
+  const idea = projectIdea.toLowerCase()
+
+  if (idea.includes("attendance")) {
+    modules = [
+      "Student Login",
+      "Faculty Login",
+      "Attendance Tracking",
+      "Attendance Reports"
+    ]
+  } else if (idea.includes("hospital")) {
+    modules = [
+      "Patient Records",
+      "Doctor Management",
+      "Appointment Booking",
+      "Billing System"
+    ]
+  } else if (idea.includes("food")) {
+    modules = [
+      "Customer Login",
+      "Restaurant Dashboard",
+      "Order Tracking",
+      "Payment Gateway"
+    ]
+  } else {
+    modules = [
+      "User Management",
+      "Dashboard",
+      "Data Processing",
+      "Reports"
+    ]
+  }
+
+  const generatedText = `
 Title: ${projectIdea}
 
 Project Type: ${projectType}
@@ -26,21 +60,63 @@ Team Size: ${teamSize}
 
 Difficulty: ${difficulty}
 
+Abstract:
+${projectIdea} is a software solution designed to improve efficiency and automate processes.
+
 Problem Statement:
-This project aims to solve real-world problems using modern technology.
+Manual processes are time consuming and error prone.
+
+Objectives:
+1. Improve efficiency
+2. Reduce manual work
+3. Increase accuracy
+4. Generate useful reports
+Literature Survey:
+Existing systems have limitations in scalability and automation. This project improves upon traditional approaches.
+
+Methodology:
+The system will collect data, process it, store it securely, and generate reports through a user-friendly interface.
+
+Expected Outcomes:
+1. Faster processing
+2. Improved accuracy
+3. Better user experience
+4. Reduced manual effort
+
+Timeline:
+Phase 1 - Planning
+Phase 2 - Design
+Phase 3 - Development
+Phase 4 - Testing
+Phase 5 - Deployment
 
 Modules:
-1. User Management
-2. Dashboard
-3. Data Processing
-4. Reports
+${modules.map((m, i) => `${i + 1}. ${m}`).join("\n")}
+
+Technology Stack:
+${techStack}
 
 Future Scope:
-Can be enhanced using AI and cloud technologies.
-    `
+Can be enhanced using AI, Cloud Computing and Mobile Applications.
+`
 
-    setBlueprint(generatedText)
-  }
+  setBlueprint(generatedText)
+}
+function downloadBlueprint() {
+  const element = document.createElement("a")
+
+  const file = new Blob([blueprint], {
+    type: "text/plain"
+  })
+
+  element.href = URL.createObjectURL(file)
+  element.download = `${projectIdea || "blueprint"}.txt`
+
+  document.body.appendChild(element)
+  element.click()
+  document.body.removeChild(element)
+}
+
 
   return (
     <div className="container">
@@ -116,8 +192,14 @@ Can be enhanced using AI and cloud technologies.
       </select>
 
       <button onClick={generateBlueprint}>
-        Generate Blueprint
+       Generate Blueprint
       </button>
+
+      {blueprint && (
+       <button onClick={downloadBlueprint}>
+         Download Blueprint
+       </button>
+      )}
 
       {blueprint && (
         <div className="output">
