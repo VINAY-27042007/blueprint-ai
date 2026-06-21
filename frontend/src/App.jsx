@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { jsPDF } from "jspdf"
 import './App.css'
 import { GoogleGenerativeAI } from "@google/generative-ai"
@@ -17,6 +17,16 @@ function App() {
   const [difficulty, setDifficulty] = useState("Beginner")
 
   const [blueprint, setBlueprint] = useState("")
+  const [loading, setLoading] = useState(false)
+  const [history, setHistory] = useState([])
+
+  useEffect(() => {
+  const saved = localStorage.getItem("blueprintHistory")
+
+  if (saved) {
+    setHistory(JSON.parse(saved))
+  }
+}, [])
 
   function generateBlueprint() {
   let modules = []
@@ -132,11 +142,17 @@ function downloadPDF() {
 
   doc.save(`${projectIdea || "blueprint"}.pdf`)
 }
+function copyBlueprint() {
+  navigator.clipboard.writeText(blueprint)
+  alert("Blueprint copied successfully!")
+}
 async function generateAIBlueprint() {
   if (!projectIdea) {
     alert("Enter a project idea first")
     return
   }
+
+  setLoading(true)
 
   try {
     const model = genAI.getGenerativeModel({
@@ -156,18 +172,32 @@ Include:
 5. Methodology
 6. Expected Outcomes
 7. Future Scope
-
-Format it professionally.
 `
 
     const result = await model.generateContent(prompt)
-
     const response = result.response.text()
 
     setBlueprint(response)
+
+const newHistory = [
+  ...history,
+  {
+    title: projectIdea,
+    content: response
+  }
+]
+
+setHistory(newHistory)
+
+localStorage.setItem(
+  "blueprintHistory",
+  JSON.stringify(newHistory)
+)
   } catch (error) {
     console.error(error)
     alert("Error generating blueprint")
+  } finally {
+    setLoading(false)
   }
 }
 function copyBlueprint() {
@@ -253,8 +283,12 @@ function copyBlueprint() {
   Generate Template
 </button>
 
-<button onClick={generateAIBlueprint}>
-  Generate with AI 🤖
+<button
+  onClick={generateAIBlueprint}
+  disabled={loading}
+  className="ai-btn"
+>
+  {loading ? "⏳ Generating AI Blueprint..." : "🤖 Generate with AI"}
 </button>
       {blueprint && (
   <>
@@ -271,6 +305,18 @@ function copyBlueprint() {
     </button>
   </>
 )}
+<div className="history">
+  <h2>Previous Blueprints</h2>
+
+  {history.map((item, index) => (
+    <button
+      key={index}
+      onClick={() => setBlueprint(item.content)}
+    >
+      {item.title}
+    </button>
+  ))}
+</div>
 
       {blueprint && (
         <div className="output">
