@@ -94,3 +94,25 @@ button:hover {
   background: gray;
   cursor: not-allowed;
 }
+.templates {
+  margin: 15px 0;
+}
+
+.templates button {
+  margin: 5px;
+  padding: 8px 12px;
+}
+.suggestions {
+  margin-top: 15px;
+}
+
+.suggestions button {
+  display: block;
+  width: 100%;
+  margin: 5px 0;
+}
+.counter {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
