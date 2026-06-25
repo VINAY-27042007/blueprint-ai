@@ -1,17 +1,122 @@
-# React + Vite
+# 🚀 BlueprintAI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+BlueprintAI is an AI-powered project blueprint generator built with **React** and **Google Gemini AI**. It helps students quickly transform project ideas into structured project documentation for college projects, hackathons, and startups.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## ✨ Features
 
-## React Compiler
+* 🤖 AI-powered project blueprint generation
+* 📄 Offline template generation
+* 📚 Quick project templates
+* 🟢 Project difficulty analyzer
+* 💡 Project idea suggestions
+* 📂 Blueprint history (stored locally)
+* 📋 Copy blueprint to clipboard
+* 📥 Download as TXT
+* 📕 Export as PDF
+* ⚡ Clean and beginner-friendly UI
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠 Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-// version 2
+* React.js
+* Vite
+* JavaScript
+* Google Gemini API
+* jsPDF
+* HTML5
+* CSS3
+
+---
+
+## 📸 Screenshots
+
+> Add screenshots of your application here.
+
+Example:
+
+* Home Page
+* AI Generated Blueprint
+* Download PDF
+* Project History
+
+---
+
+## 🚀 Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/VINAY-27042007/blueprint-ai.git
+```
+
+Go to the project folder:
+
+```bash
+cd blueprint-ai/frontend
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Create a `.env` file:
+
+```env
+VITE_GEMINI_API_KEY=YOUR_API_KEY
+```
+
+Run the project:
+
+```bash
+npm run dev
+```
+
+---
+
+## 📂 Folder Structure
+
+```
+frontend
+│
+├── src
+│   ├── App.jsx
+│   ├── App.css
+│   └── main.jsx
+│
+├── public
+├── package.json
+└── vite.config.js
+```
+
+---
+
+## 🎯 Future Improvements
+
+* User authentication
+* Cloud storage for blueprints
+* DOCX export
+* Team collaboration
+* More AI project templates
+* Deployment support
+
+---
+
+## 👨‍💻 Author
+
+**Surya Vinay Varma**
+
+* GitHub: https://github.com/VINAY-27042007
+* LinkedIn: https://www.linkedin.com/in/surya-vinay-varma-630b2820b
+
+---
+
+## ⭐ Support
+
+If you found this project helpful, please consider giving it a ⭐ on GitHub.
+
+It motivates me to build more open-source projects.
