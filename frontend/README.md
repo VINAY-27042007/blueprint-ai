@@ -1,5 +1,9 @@
 # 🚀 BlueprintAI
 
+**Version:** v1.1
+
+_Last Updated: June 2026_
+
 BlueprintAI is an AI-powered project blueprint generator built with **React** and **Google Gemini AI**. It helps students quickly transform project ideas into structured project documentation for college projects, hackathons, and startups.
 
 ---
@@ -114,6 +118,15 @@ frontend
 * LinkedIn: https://www.linkedin.com/in/surya-vinay-varma-630b2820b
 
 ---
+
+## 🆕 Latest Updates
+
+- Added AI Blueprint Generation
+- Added PDF Export
+- Added TXT Export
+- Added Blueprint History
+- Added Quick Templates
+- Added Difficulty Analyzer
 
 ## ⭐ Support
 
