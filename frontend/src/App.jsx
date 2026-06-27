@@ -14,6 +14,7 @@ function App() {
   const [history, setHistory] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
   const [projectLevel, setProjectLevel] = useState("");
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const saved = localStorage.getItem("blueprintHistory");
@@ -56,6 +57,10 @@ function App() {
       "Student Performance Tracker",
       "College Management System",
     ]);
+    if (!projectIdea.trim()) {
+  alert("Please enter a project idea.");
+  return;
+}
   }
     function generateBlueprint() {
     const generatedText = `
@@ -164,13 +169,17 @@ Include:
 
       setBlueprint(response);
 
-      const newHistory = [
-        ...history,
-        {
-          title: projectIdea,
-          content: response,
-        },
-      ];
+      const filteredHistory = history.filter(
+  (item) => item.title !== projectIdea
+);
+
+const newHistory = [
+  {
+    title: projectIdea,
+    content: generatedText,
+  },
+  ...filteredHistory,
+];
 
       setHistory(newHistory);
 
@@ -314,15 +323,37 @@ Include:
 
       <div className="history">
         <h2>Previous Blueprints</h2>
+        <input
+          type="text"
+          placeholder="🔍 Search previous blueprints..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
 
-        {history.map((item, index) => (
-          <button
-            key={index}
-            onClick={() => setBlueprint(item.content)}
-          >
-            {item.title}
-          </button>
-        ))}
+        {history
+          .filter((item) =>
+            item.title.toLowerCase().includes(search.toLowerCase())
+          )
+          .map((item, index) => (
+            <div key={index} className="history-item">
+              <h3>{item.title}</h3>
+              <button onClick={() => setBlueprint(item.content)}>
+                View Blueprint
+              </button>
+              <button
+  onClick={() => {
+    const updated = history.filter((_, i) => i !== index);
+    setHistory(updated);
+    localStorage.setItem(
+      "blueprintHistory",
+      JSON.stringify(updated)
+    );
+  }}
+>
+  🗑 Delete
+</button>
+            </div>
+          ))}
       </div>
 
       {blueprint && (
