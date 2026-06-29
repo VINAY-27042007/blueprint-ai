@@ -15,6 +15,7 @@ function App() {
   const [suggestions, setSuggestions] = useState([]);
   const [projectLevel, setProjectLevel] = useState("");
   const [search, setSearch] = useState("");
+  const [report, setReport] = useState("");
 
   useEffect(() => {
     const saved = localStorage.getItem("blueprintHistory");
@@ -110,7 +111,9 @@ Can be enhanced using AI and Cloud Computing.
   function downloadBlueprint() {
     const element = document.createElement("a");
 
-    const file = new Blob([blueprint], {
+    const content = report || blueprint;
+
+    const file = new Blob([content], {
       type: "text/plain",
     });
 
@@ -125,7 +128,9 @@ Can be enhanced using AI and Cloud Computing.
   function downloadPDF() {
     const doc = new jsPDF();
 
-    const lines = doc.splitTextToSize(blueprint, 180);
+    const content = report || blueprint;
+
+    const lines = doc.splitTextToSize(content, 180);
 
     doc.text(lines, 10, 10);
 
@@ -136,6 +141,114 @@ Can be enhanced using AI and Cloud Computing.
     navigator.clipboard.writeText(blueprint);
     alert("Blueprint copied!");
   }
+  function generateReport() {
+  const fullReport = `
+==============================
+        PROJECT REPORT
+==============================
+
+Title:
+${projectIdea}
+
+================================
+CERTIFICATE
+================================
+
+This is to certify that this project titled
+"${projectIdea}"
+has been completed successfully.
+
+================================
+ACKNOWLEDGEMENT
+================================
+
+I sincerely thank my guide, faculty members,
+and institution for their support.
+
+================================
+ABSTRACT
+================================
+
+${projectIdea} is developed to improve
+efficiency and automate manual processes.
+
+================================
+OBJECTIVES
+================================
+
+• Improve efficiency
+• Reduce manual work
+• Increase accuracy
+• Better user experience
+
+================================
+LITERATURE SURVEY
+================================
+
+Existing systems have limitations in
+automation and scalability.
+
+================================
+METHODOLOGY
+================================
+
+Requirement Analysis
+
+↓
+
+Design
+
+↓
+
+Development
+
+↓
+
+Testing
+
+↓
+
+Deployment
+
+================================
+MODULES
+================================
+
+• User Management
+
+• Dashboard
+
+• Reports
+
+================================
+FUTURE SCOPE
+================================
+
+• AI Integration
+
+• Mobile Application
+
+• Cloud Deployment
+
+================================
+CONCLUSION
+================================
+
+The project provides an efficient solution
+for managing and automating tasks.
+
+================================
+REFERENCES
+================================
+
+• Google
+• IEEE Papers
+• Official Documentation
+
+`;
+
+  setReport(fullReport);
+}
     async function generateAIBlueprint() {
     if (!projectIdea) {
       alert("Enter a project idea first");
@@ -272,6 +385,9 @@ const newHistory = [
       <button onClick={generateBlueprint}>
         📄 Generate Template
       </button>
+      <button onClick={generateReport}>
+  📘 Generate Full Report
+</button>
 
       <button onClick={suggestProjects}>
         💡 Suggest Project Ideas
@@ -362,6 +478,12 @@ const newHistory = [
           <pre>{blueprint}</pre>
         </div>
       )}
+      {report && (
+  <div className="output">
+    <h2>📘 Full Project Report</h2>
+    <pre>{report}</pre>
+  </div>
+)}
     </div>
   );
 }
